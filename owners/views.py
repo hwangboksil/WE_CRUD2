@@ -12,10 +12,21 @@ class OwnerView(View):
 
         result = []
         for owner in owners:
+            dogs = owner.dog_set.all()
+            dog_list = []
+
+            for dog in dogs:
+                dog_info = {
+                    'name': dog.name,
+                    'age': dog.age
+                }
+                dog_list.append(dog_info)
+
             owner_info = {
                 'email': owner.email,
                 'name': owner.name,
-                'age': owner.age
+                'age': owner.age,
+                'dogs': dog_list
             }
             result.append(owner_info)
 
