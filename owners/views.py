@@ -7,6 +7,19 @@ from .models import Owner, Dog
 
 
 class OwnerView(View):
+    def get(self, request):
+        owners = Owner.objects.all()
+
+        result = []
+        for owner in owners:
+            owner_info = {
+                'email': owner.email,
+                'name': owner.name,
+                'age': owner.age
+            }
+            result.append(owner_info)
+
+        return JsonResponse({'result': result}, status=200)
 
     def post(self, request):
         try:
