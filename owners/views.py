@@ -22,6 +22,7 @@ class OwnerView(View):
         return JsonResponse({'result': result}, status=200)
 
     def post(self, request):
+
         try:
             data = json.loads(request.body)
 
@@ -35,6 +36,19 @@ class OwnerView(View):
 
 
 class DogView(View):
+    def get(self, request):
+        dogs = Dog.objects.all()
+
+        result = []
+        for dog in dogs:
+            dog_info = {
+                'owner': dog.owner.name,
+                'name': dog.name,
+                'age': dog.age
+            }
+            result.append(dog_info)
+
+        return JsonResponse({'result': result}, status=200)
 
     def post(self, request):
         try:
